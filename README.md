@@ -2,23 +2,20 @@
 
 - Start Zookeper Container and expose PORT 2181.
 
-```docker
-docker run -p 2181:2181 zookeeper
+```bash
+docker run -p 2181:2181 \
+  -e ZOOKEEPER_CLIENT_PORT=2181 \
+  confluentinc/cp-zookeeper:7.2.1
 ```
 
 - Start Kafka Container, expose PORT 9092 and setup ENV variables.
 
-```docker
+```bash
 docker run -p 9092:9092 \
-  -e KAFKA_PROCESS_ROLES=broker,controller \
-  -e KAFKA_NODE_ID=1 \
-  -e KAFKA_LISTENERS=PLAINTEXT://0.0.0.0:9092,CONTROLLER://0.0.0.0:9093 \
+  -e KAFKA_ZOOKEEPER_CONNECT=<PRIVATE_IP>:2181 \
   -e KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://<PRIVATE_IP>:9092 \
-  -e KAFKA_CONTROLLER_LISTENER_NAMES=CONTROLLER \
-  -e KAFKA_CONTROLLER_QUORUM_VOTERS=1@localhost:9093 \
-  -e KAFKA_LOG_DIRS=/tmp/kraft-combined-logs \
-  -e CLUSTER_ID=abcdefghijklmnopqrstuvwx \
-  confluentinc/cp-kafka:latest
+  -e KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR=1 \
+  confluentinc/cp-kafka:7.2.1
 ```
 
 ### PRIVATE_IP = Your system IP
