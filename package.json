@@ -1,0 +1,25 @@
+{
+  "name": "kafka",
+  "version": "1.0.0",
+  "description": "- Start Zookeper Container and expose PORT 2181.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "compile": "tsc",
+    "build": "npx tsc -p .",
+    "dev": "npx nodemon ./dist/index.js",
+    "start": "nodemon ./dist/index.js",
+    "watch": "npx tsc -w"
+  },
+  "type": "module",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^24.3.0",
+    "typescript": "^5.9.2"
+  },
+  "dependencies": {
+    "kafkajs": "^2.2.4"
+  }
+}
